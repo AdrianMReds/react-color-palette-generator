@@ -1,0 +1,27 @@
+.toolsBar-btn {
+  margin: 0px 12px;
+  height: 30px;
+  width: 100px;
+  background-color: transparent;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.toolsBar-btn:hover {
+  background-color: lightgray;
+}
+
+.actionsBar-action {
+  margin: 10px 5px;
+  cursor: pointer;
+  display: flex;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionsBar-action:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}

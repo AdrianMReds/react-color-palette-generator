@@ -42,6 +42,16 @@ function Navbar() {
                 Saved
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/about"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                About
+              </NavLink>
+            </li>
           </ul>
           <div className="nav-icon" onClick={handleClick}>
             {click ? <FaTimes /> : <FaBars />}
