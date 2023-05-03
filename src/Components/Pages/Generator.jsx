@@ -35,8 +35,6 @@ const generateColor = () => {
     random.push(Math.floor(Math.random() * 256));
   }
   finalColor = "#" + rgbToHex(random);
-  console.log(`Random: ${random}`);
-  console.log(`Final color ${finalColor}`);
   return finalColor;
 };
 
@@ -48,10 +46,7 @@ const Generator = () => {
     { color: generateColor(), blocked: false },
     { color: generateColor(), blocked: false },
   ]);
-
-  // useEffect(() => {
-  //   console.log("New render");
-  // }, [palette]);
+  const [selected, setSelected] = useState(undefined);
 
   const restartColors = () => {
     let tempPalette = [...palette];
@@ -93,6 +88,7 @@ const Generator = () => {
       <div
         className="palette"
         style={{ display: "flex", flexDirection: "row", height: "82vh" }}
+        onMouseLeave={() => setSelected(undefined)}
       >
         {palette.map((color, index) => {
           return (
@@ -133,6 +129,8 @@ const Generator = () => {
                   setPalette(tempPalette);
                 }
               }}
+              setSelected={() => setSelected(index)}
+              show={selected === index ? true : false}
             />
           );
         })}
@@ -148,7 +146,31 @@ const ColorBar = ({
   changeBlocked,
   moveLeft,
   moveRight,
+  setSelected,
+  show,
 }) => {
+  const darkOrLight = (color) => {
+    var r, g, b, hsp;
+
+    // Function extracted from https://awik.io/determine-color-bright-dark-using-javascript/
+    //Convert it to RGB: http://gist.github.com/983661
+    color = +("0x" + color.slice(1).replace(color.length < 5 && /./g, "$&$&"));
+
+    r = color >> 16;
+    g = (color >> 8) & 255;
+    b = color & 255;
+
+    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
+    hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b));
+
+    // Using the HSP value, determine whether the color is light or dark
+    if (hsp > 127.5) {
+      return "light";
+    } else {
+      return "dark";
+    }
+  };
+
   return (
     <div
       className="colorBar"
@@ -156,9 +178,11 @@ const ColorBar = ({
         width: "20%",
         backgroundColor: c,
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-end",
       }}
+      onMouseEnter={setSelected}
     >
       <div
         className="actionsBar"
@@ -166,6 +190,7 @@ const ColorBar = ({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          marginBottom: 55,
         }}
       >
         <div
@@ -173,22 +198,33 @@ const ColorBar = ({
           style={{
             height: "60px",
             width: "60px",
+            display: show ? "flex" : "none",
           }}
         >
-          <VscSymbolColor style={{ fontSize: 35 }} />
+          <VscSymbolColor
+            style={{ fontSize: 35 }}
+            color={darkOrLight(c) === "light" ? "black" : "white"}
+          />
         </div>
         <div
           className="actionsBar-action"
           style={{
             height: "60px",
             width: "60px",
+            display: b || show ? "flex" : "none",
           }}
           onClick={changeBlocked}
         >
           {b ? (
-            <BsFillLockFill style={{ fontSize: 35 }} />
+            <BsFillLockFill
+              style={{ fontSize: 35 }}
+              color={darkOrLight(c) === "light" ? "black" : "white"}
+            />
           ) : (
-            <BsFillUnlockFill style={{ fontSize: 35 }} />
+            <BsFillUnlockFill
+              style={{ fontSize: 35 }}
+              color={darkOrLight(c) === "light" ? "black" : "white"}
+            />
           )}
         </div>
         <div
@@ -198,7 +234,9 @@ const ColorBar = ({
             width: "150px",
           }}
         >
-          <h2>{c}</h2>
+          <h2 style={{ color: darkOrLight(c) === "light" ? "black" : "white" }}>
+            {c}
+          </h2>
         </div>
         <div
           style={{
@@ -208,10 +246,16 @@ const ColorBar = ({
           }}
         >
           <div className="actionsBar-action" onClick={moveLeft}>
-            <VscArrowLeft style={{ fontSize: 35 }} />
+            <VscArrowLeft
+              style={{ fontSize: 35 }}
+              color={darkOrLight(c) === "light" ? "black" : "white"}
+            />
           </div>
           <div className="actionsBar-action" onClick={moveRight}>
-            <VscArrowRight style={{ fontSize: 35 }} />
+            <VscArrowRight
+              style={{ fontSize: 35 }}
+              color={darkOrLight(c) === "light" ? "black" : "white"}
+            />
           </div>
         </div>
       </div>
