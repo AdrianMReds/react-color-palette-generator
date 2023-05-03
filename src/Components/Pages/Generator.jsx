@@ -12,6 +12,8 @@ import {
   VscDebugRestart,
   VscSymbolColor,
 } from "react-icons/vsc";
+import { ChromePicker } from "react-color";
+import { notification } from "antd";
 import "./Pages.css";
 
 const rgbToHex = (nums) => {
@@ -69,12 +71,6 @@ const Generator = () => {
     ]);
   };
 
-  const changeColor = (i, newColor) => {
-    let tempPalette = [...palette];
-    tempPalette[i].color = newColor;
-    setPalette(tempPalette);
-  };
-
   return (
     <div
       style={{
@@ -95,7 +91,11 @@ const Generator = () => {
             <ColorBar
               c={color.color}
               b={color.blocked}
-              changeColor={() => {}}
+              changeColor={(newColor) => {
+                let tempPalette = [...palette];
+                tempPalette[index].color = newColor;
+                setPalette(tempPalette);
+              }}
               changeBlocked={() => {
                 let tempPalette = [...palette];
                 let actual = tempPalette[index].blocked;
@@ -149,6 +149,9 @@ const ColorBar = ({
   setSelected,
   show,
 }) => {
+  const [editColor, setEditColor] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
+
   const darkOrLight = (color) => {
     var r, g, b, hsp;
 
@@ -171,6 +174,21 @@ const ColorBar = ({
     }
   };
 
+  const handleColorChange = (color) => {
+    const c = color.hex;
+    changeColor(c.toUpperCase());
+  };
+
+  const copyToClipboard = (copyText) => {
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(copyText);
+    api.success({
+      message: `${copyText} copied to the clipboard.`,
+      placement: "bottom",
+      duration: 2,
+    });
+  };
+
   return (
     <div
       className="colorBar"
@@ -183,7 +201,9 @@ const ColorBar = ({
         justifyContent: "flex-end",
       }}
       onMouseEnter={setSelected}
+      onMouseLeave={() => setEditColor(false)}
     >
+      {contextHolder}
       <div
         className="actionsBar"
         style={{
@@ -193,17 +213,25 @@ const ColorBar = ({
           marginBottom: 55,
         }}
       >
+        {editColor && !b && (
+          <ChromePicker
+            color={c}
+            onChange={handleColorChange}
+            disableAlpha={true}
+          />
+        )}
         <div
           className="actionsBar-action"
           style={{
             height: "60px",
             width: "60px",
-            display: show ? "flex" : "none",
+            display: show ? (!b ? "flex" : "none") : "none",
           }}
         >
           <VscSymbolColor
             style={{ fontSize: 35 }}
             color={darkOrLight(c) === "light" ? "black" : "white"}
+            onClick={() => setEditColor(!editColor)}
           />
         </div>
         <div
@@ -233,6 +261,8 @@ const ColorBar = ({
             height: "50px",
             width: "150px",
           }}
+          onClick={() => copyToClipboard(c)}
+          title="Copy to clipboard"
         >
           <h2 style={{ color: darkOrLight(c) === "light" ? "black" : "white" }}>
             {c}
