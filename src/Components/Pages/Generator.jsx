@@ -15,6 +15,7 @@ import {
 import { ChromePicker } from "react-color";
 import { notification } from "antd";
 import "./Pages.css";
+import ViewModal from "../ViewModal";
 
 const rgbToHex = (nums) => {
   let hexcode = "";
@@ -49,6 +50,7 @@ const Generator = () => {
     { color: generateColor(), blocked: false },
   ]);
   const [selected, setSelected] = useState(undefined);
+  const [openViewModal, setOpenViewModal] = useState(false);
 
   const restartColors = () => {
     let tempPalette = [...palette];
@@ -80,12 +82,22 @@ const Generator = () => {
         flexDirection: "column",
       }}
     >
-      <ToolsBar height={"8vh"} restartColors={restartColors} />
+      <ToolsBar
+        height={"8vh"}
+        restartColors={restartColors}
+        openViewModal={openViewModal}
+        setOpenViewModal={setOpenViewModal}
+      />
       <div
         className="palette"
         style={{ display: "flex", flexDirection: "row", height: "82vh" }}
         onMouseLeave={() => setSelected(undefined)}
       >
+        <ViewModal
+          modalOpen={openViewModal}
+          setModalOpen={setOpenViewModal}
+          palette={palette}
+        />
         {palette.map((color, index) => {
           return (
             <ColorBar
@@ -293,7 +305,12 @@ const ColorBar = ({
   );
 };
 
-const ToolsBar = ({ height, restartColors }) => {
+const ToolsBar = ({
+  height,
+  restartColors,
+  openViewModal,
+  setOpenViewModal,
+}) => {
   return (
     <div
       className="toolsBar"
@@ -322,7 +339,14 @@ const ToolsBar = ({ height, restartColors }) => {
         <button className="toolsBar-btn" onClick={restartColors}>
           {<VscDebugRestart />} Generate
         </button>
-        <button className="toolsBar-btn">{<BsEyeFill />} View</button>
+        <button
+          className="toolsBar-btn"
+          onClick={() => {
+            setOpenViewModal(true);
+          }}
+        >
+          {<BsEyeFill />} View
+        </button>
         <button className="toolsBar-btn">{<BsSuitHeart />} Save</button>
       </div>
     </div>
