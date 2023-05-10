@@ -35,7 +35,9 @@ const Home = () => {
           style={{ height: "60%", width: "60%", margin: 30 }}
         />
         <NavLink exact to="/generator">
-          <Button type="primary">Start generator</Button>
+          <Button type="primary" size="large">
+            Start generator
+          </Button>
         </NavLink>
       </div>
     </div>
