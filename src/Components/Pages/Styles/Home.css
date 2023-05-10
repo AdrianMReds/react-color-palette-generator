@@ -1,0 +1,38 @@
+.main-div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-div {
+  height: fit-content;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 940px) {
+  h1 {
+    font-size: 30px;
+    margin: 10px 0px;
+  }
+  h2 {
+    font-size: 15px;
+  }
+  .home-img {
+    content: url(https://s3.amazonaws.com/www-inside-design/uploads/2019/08/color_wheel.png);
+  }
+  .home-btn {
+    margin: 10px;
+  }
+}

@@ -1,0 +1,124 @@
+.toolsBar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolsBar-text {
+  width: 30%;
+  margin-left: 10px;
+  border-right: 1px solid lightgray;
+}
+
+.toolsBar-buttons {
+  margin-right: 20px;
+}
+
+.toolsBar-btn {
+  margin: 0px 12px;
+  height: 30px;
+  width: 100px;
+  background-color: transparent;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.toolsBar-btn:hover {
+  background-color: lightgray;
+}
+
+.actionsBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 55px;
+}
+
+#color-picker,
+#lock {
+  height: 60px;
+  width: 60px;
+}
+
+#hexcode {
+  height: 50px;
+  width: 150px;
+}
+
+.arrows {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.actionsBar-action {
+  margin: 10px 5px;
+  cursor: pointer;
+  display: flex;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionsBar-action:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.palette {
+  display: flex;
+  flex-direction: row;
+  height: 82vh;
+}
+
+.colorBar {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 940px) {
+  .toolsBar {
+    justify-content: center;
+  }
+
+  .toolsBar-text {
+    display: none;
+  }
+
+  .toolsBar-buttons {
+    margin: 0px 0px;
+  }
+
+  .toolsBar-btn {
+    margin: 0px 3px;
+  }
+
+  .palette {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .colorBar {
+    width: 100%;
+    height: 20%;
+    justify-content: center;
+  }
+
+  .actionsBar {
+    flex-direction: row;
+
+    margin: 0px;
+  }
+
+  .arrows {
+    transform: rotate(90deg);
+    height: 80%;
+  }
+}

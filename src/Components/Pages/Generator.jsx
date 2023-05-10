@@ -14,8 +14,8 @@ import {
 } from "react-icons/vsc";
 import { ChromePicker } from "react-color";
 import { notification } from "antd";
-import "./Pages.css";
 import ViewModal from "../ViewModal";
+import "./Styles/Generator.css";
 
 const rgbToHex = (nums) => {
   let hexcode = "";
@@ -88,11 +88,7 @@ const Generator = () => {
         openViewModal={openViewModal}
         setOpenViewModal={setOpenViewModal}
       />
-      <div
-        className="palette"
-        style={{ display: "flex", flexDirection: "row", height: "82vh" }}
-        onMouseLeave={() => setSelected(undefined)}
-      >
+      <div className="palette" onMouseLeave={() => setSelected(undefined)}>
         <ViewModal
           modalOpen={openViewModal}
           setModalOpen={setOpenViewModal}
@@ -205,26 +201,13 @@ const ColorBar = ({
     <div
       className="colorBar"
       style={{
-        width: "20%",
         backgroundColor: c,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-end",
       }}
       onMouseEnter={setSelected}
       onMouseLeave={() => setEditColor(false)}
     >
       {contextHolder}
-      <div
-        className="actionsBar"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginBottom: 55,
-        }}
-      >
+      <div className="actionsBar">
         {editColor && !b && (
           <ChromePicker
             color={c}
@@ -233,11 +216,16 @@ const ColorBar = ({
           />
         )}
         <div
+          id="color-picker"
           className="actionsBar-action"
           style={{
-            height: "60px",
-            width: "60px",
-            display: show ? (!b ? "flex" : "none") : "none",
+            display: show
+              ? !b
+                ? window.innerWidth > 940
+                  ? "flex"
+                  : "none"
+                : "none"
+              : "none",
           }}
         >
           <VscSymbolColor
@@ -247,11 +235,10 @@ const ColorBar = ({
           />
         </div>
         <div
+          id="lock"
           className="actionsBar-action"
           style={{
-            height: "60px",
-            width: "60px",
-            display: b || show ? "flex" : "none",
+            display: b || show || window.innerWidth < 940 ? "flex" : "none",
           }}
           onClick={changeBlocked}
         >
@@ -268,11 +255,8 @@ const ColorBar = ({
           )}
         </div>
         <div
+          id="hexcode"
           className="actionsBar-action"
-          style={{
-            height: "50px",
-            width: "150px",
-          }}
           onClick={() => copyToClipboard(c)}
           title="Copy to clipboard"
         >
@@ -280,13 +264,7 @@ const ColorBar = ({
             {c}
           </h2>
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
+        <div className="arrows">
           <div className="actionsBar-action" onClick={moveLeft}>
             <VscArrowLeft
               style={{ fontSize: 35 }}
@@ -315,27 +293,15 @@ const ToolsBar = ({
     <div
       className="toolsBar"
       style={{
-        display: "flex",
-        flexDirection: "row",
-        width: "100%",
         height: height,
-        alignItems: "center",
-        justifyContent: "space-between",
       }}
     >
-      <div
-        className="toolsBar-text"
-        style={{
-          width: "30%",
-          marginLeft: 10,
-          borderRight: "1px solid lightgray",
-        }}
-      >
+      <div className="toolsBar-text">
         <p style={{ textAlign: "left", fontSize: 18 }}>
           Change or block colors and make a color palette!
         </p>
       </div>
-      <div className="toolsBar-buttons" style={{ marginRight: 20 }}>
+      <div className="toolsBar-buttons">
         <button className="toolsBar-btn" onClick={restartColors}>
           {<VscDebugRestart />} Generate
         </button>

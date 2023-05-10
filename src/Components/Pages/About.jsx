@@ -1,30 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "antd";
+import "./Styles/About.css";
 
 const About = () => {
   return (
     <>
-      <div
-        style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "50%",
-            height: "50%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: 20,
-          }}
-        >
-          <div style={{ fontSize: 20 }}>
+      <div className="main-div">
+        <div className="content-div">
+          <div>
             <p>
               This webpage was made by{" "}
               <a target="_blank" href="https://github.com/AdrianMReds">
@@ -57,7 +41,10 @@ const About = () => {
             </NavLink>
           </div>
         </div>
-        <div style={{ width: "50%", alignItems: "center" }}>
+        <div
+          className="about-img"
+          style={{ width: "50%", alignItems: "center" }}
+        >
           <img
             src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.png"
             alt="ReactLogo"
