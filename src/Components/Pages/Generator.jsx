@@ -73,6 +73,12 @@ const Generator = () => {
     ]);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "space") {
+      restartColors();
+    }
+  };
+
   return (
     <div
       style={{
@@ -81,6 +87,7 @@ const Generator = () => {
         display: "flex",
         flexDirection: "column",
       }}
+      onKeyDown={handleKeyDown}
     >
       <ToolsBar
         height={"8vh"}

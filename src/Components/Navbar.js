@@ -32,7 +32,7 @@ function Navbar() {
                 Generator
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink
                 exact
                 to="/saved"
@@ -41,7 +41,7 @@ function Navbar() {
               >
                 Saved
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-item">
               <NavLink
                 exact
