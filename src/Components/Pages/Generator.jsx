@@ -320,7 +320,7 @@ const ToolsBar = ({
         >
           {<BsEyeFill />} View
         </button>
-        <button className="toolsBar-btn">{<BsSuitHeart />} Save</button>
+        {/* <button className="toolsBar-btn">{<BsSuitHeart />} Save</button> */}
       </div>
     </div>
   );

@@ -74,20 +74,23 @@ const ViewModal = ({ modalOpen, setModalOpen, palette }) => {
         style={{
           display: "flex",
           flexDirection: "row",
+          justifyContent: "space-between",
           width: "80%",
           height: "25%",
-          textAlign: "-webkit-center",
-          backgroundColor: palette[clicked].color,
+          // textAlign: "-webkit-center",
+
           color:
             darkOrLight(palette[clicked].color) === "light" ? "black" : "white",
         }}
       >
         <div
           style={{
-            width: "50%",
+            width: "49%",
             display: "flex",
             flexDirection: "column",
             cursor: "pointer",
+            textAlign: "center",
+            backgroundColor: palette[clicked].color,
           }}
         >
           <p>RGB</p>
@@ -102,10 +105,12 @@ const ViewModal = ({ modalOpen, setModalOpen, palette }) => {
         </div>
         <div
           style={{
-            width: "50%",
+            width: "49%",
             display: "flex",
             flexDirection: "column",
             cursor: "pointer",
+            textAlign: "center",
+            backgroundColor: palette[clicked].color,
           }}
         >
           <p>HEXCODE</p>
